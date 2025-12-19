@@ -78,14 +78,22 @@ public class EmailGeneratorService
         }
     }
 
-    private String buildPrompt(EmailRequest emailRequest)
-    {
-        StringBuilder prompt = new StringBuilder();
-        prompt.append("Generate a professional email reply for the following email content. Please don't generate a subject line ");
-        if (emailRequest.getTone() != null && !emailRequest.getTone().isEmpty()) {
-            prompt.append("Use a ").append(emailRequest.getTone()).append(" tone.");
-        }
-        prompt.append("\nOriginal Email: \n").append(emailRequest.getEmailContent());
-        return prompt.toString();
-    }
+    private String buildPrompt(EmailRequest emailRequest) {
+    StringBuilder prompt = new StringBuilder();
+    String tone = emailRequest.getTone() != null ? emailRequest.getTone().toLowerCase() : "professional";
+
+    String toneInstruction = switch (tone) {
+        case "friendly" -> "Write a warm, casual, and friendly reply. Use approachable language and perhaps a friendly sign-off.";
+        case "concise" -> "Write a very short, direct, and to-the-point reply. Avoid unnecessary fluff or long sentences.";
+        case "formal" -> "Write a highly professional, respectful, and sophisticated reply. Use formal salutations and a polished structure.";
+        default -> "Write a balanced professional and polite email reply.";
+    };
+
+    prompt.append("You are an expert email assistant. ").append(toneInstruction);
+    prompt.append("\n\nRules:\n- Do not generate a subject line.\n- Focus only on the body of the email.");
+    prompt.append("\n\nOriginal Email Content:\n").append(emailRequest.getEmailContent());
+    prompt.append("\n\nGenerated ").append(tone.toUpperCase()).append(" Reply:");
+
+    return prompt.toString();
+}
 }

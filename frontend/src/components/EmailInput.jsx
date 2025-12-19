@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const EmailInput = ({ emailContent, setEmailContent, tone, setTone, onSubmit, loading, error }) => {
+const EmailInput = ({ emailContent, setEmailContent, subject, setSubject, tone, setTone, onSubmit, loading, error }) => {
   return (
     <section className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100">
       <div className="flex items-center gap-2 mb-6">
@@ -10,11 +10,28 @@ const EmailInput = ({ emailContent, setEmailContent, tone, setTone, onSubmit, lo
       <div className="space-y-6">
         <div>
           <label className="text-sm font-semibold text-slate-600 mb-2 flex items-center gap-2">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z" />
+            </svg>
+            Subject
+          </label>
+          <input
+            type="text"
+            className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition-all"
+            placeholder="Enter the email subject..."
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+        </div>
+        <div>
+          <label className="text-sm font-semibold text-slate-600 mb-2 flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
             Original Email
           </label>
           <textarea
-            className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition-all resize-none min-h-[200px]"
+            className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition-all resize-none min-h-[180px]"
             placeholder="Paste the email content here..."
             value={emailContent}
             onChange={(e) => setEmailContent(e.target.value)}
@@ -30,8 +47,8 @@ const EmailInput = ({ emailContent, setEmailContent, tone, setTone, onSubmit, lo
               onChange={(e) => setTone(e.target.value)}
             >
               <option value="">Default (Auto)</option>
-              <option value="professional">Professional</option>
-              <option value="casual">Casual</option>
+              <option value="formal">Formal</option>
+              <option value="concise">Concise</option>
               <option value="friendly">Friendly</option>
             </select>
           </div>

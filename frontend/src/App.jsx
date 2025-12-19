@@ -4,6 +4,8 @@ import EmailInput from './components/EmailInput';
 import EmailOutput from './components/EmailOutput';
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
+  const [subject, setSubject] = useState("");
   const [emailContent, setEmailContent] = useState('');
   const [tone, setTone] = useState('');
   const [generatedReply, setGeneratedReply] = useState('');
@@ -16,6 +18,7 @@ function App() {
     try {
       const response = await axios.post("http://localhost:8080/api/email/generate", {
         emailContent,
+        subject,
         tone
       });
       const data = typeof response.data === 'string' ? response.data : JSON.stringify(response.data);
@@ -35,7 +38,7 @@ function App() {
       <main className="max-w-6xl mx-auto py-12 px-4">
         <header className="text-center mb-12">
           <h1 className="text-4xl font-extrabold text-white tracking-tight mb-3">Smart Reply AI</h1>
-          <p className="text-indigo-300 text-lg">Turn messy emails into professional responses in seconds.</p>
+          <p className="text-indigo-900 text-lg">Turn messy emails into formal/concise/friendly responses in seconds.</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
